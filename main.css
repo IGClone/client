@@ -1,0 +1,8 @@
+body{
+    background-color: #fafafa
+}
+
+#feed{
+    overflow: auto;
+    height: 100vh;
+}
