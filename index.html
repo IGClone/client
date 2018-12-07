@@ -27,7 +27,7 @@
             <div class="container my-3">
                 <div class="row">
                     <!-- feed -->
-                    <feed :totalfeed="totalFeed" ></feed>
+                    <feed @comment_success="readFeed" :totalfeed="totalFeed" ></feed>
                     <div class="col-md-6">
                     
                         <listinguser :userslist="usersList" @following="following"></listinguser>
@@ -37,6 +37,9 @@
                 </div>
             </div>
     </div>
+    <script>
+        $('.collapse').collapse()
+    </script>
     <!--Post Modal-->
     <script id="upload-template" type="text/template">
         <div>
