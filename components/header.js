@@ -17,7 +17,7 @@ Vue.component (`header-clone`, {
                     <a class="nav-link disabled" href="#">Disabled</a>
                     </li>
                 </ul>
-                <div v-if=" !isLogin "> 
+                <div v-if=" !islogin "> 
                     <!-- LOG IN  -->
                     <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#loginModal">
                         Login
@@ -83,7 +83,7 @@ Vue.component (`header-clone`, {
                     </div>
                 </div>
                 <!-- LOGOUT -->
-                <div v-if= "isLogin">
+                <div v-if= "islogin">
                     <button v-on:click="logout" type="button" class="btn btn-outline-success my-2 my-sm-0">
                         Logout
                     </button>
@@ -91,7 +91,7 @@ Vue.component (`header-clone`, {
             </div>
         </nav>
     `,
-    props:['totalFeed'],
+    props:['totalFeed','islogin'],
     data() {
         return {
             user : {
@@ -100,10 +100,15 @@ Vue.component (`header-clone`, {
                 password : ""
             },
             server: "http://localhost:3000",
-            isLogin: localStorage.getItem('token') ? true : false
         } 
     },
     methods: {
+        clear(){
+            self = this
+            self.user.name = ""
+            self.user.email = ""
+            self.user.password = ""
+        },
         login() {
             let self = this
             axios({
@@ -117,8 +122,8 @@ Vue.component (`header-clone`, {
             .then((result)  => {
                 let token = result.data.token
                 localStorage.setItem("token", token)
-                this.ifLogin() 
-                self.user = ""
+                self.clear()
+                this.$emit('login_success')
                 $('#loginModal').modal('hide')
             })
             .catch(function(err) {
@@ -137,28 +142,20 @@ Vue.component (`header-clone`, {
                 }
             })
             .then(function() {
-                self.user = ""
+                self.clear()
                 console.log("sign up success")
+                $('#signUpModal').modal('hide')
+
             })
             .catch(function(err) {
                 console.log(err)
             })
         },
-        ifLogin() {
-            let token = localStorage.getItem("token")
-            if (token) {
-                this.isLogin = true
-            } else {
-                this.isLogin = false
-            }
-        },
+      
         logout() {
             localStorage.clear()
-            this.ifLogin()
+           this.$emit('logout_success')
         }
-    }, 
-    mounted: function() {
-        this.ifLogin()
     }
 })
 

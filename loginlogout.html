@@ -105,6 +105,7 @@
                         self.email = ""
                         self.password = ""
                         console.log("sign up success")
+                        $('#signUpModal').modal('hide')
                     })
                     .catch(function(err) {
                         console.log(err)
