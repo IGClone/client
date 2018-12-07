@@ -55,6 +55,13 @@ const app = new Vue ({
             .catch(err => {
                 console.log(err)
             })
+        },
+        checkLogin() {
+            if(localStorage.getItem('token')) {
+                this.isLogin = true
+            } else {
+                this.isLogin = false
+            }
         }
     },
     created(){

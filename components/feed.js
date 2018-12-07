@@ -19,7 +19,7 @@ Vue.component (`feed`,{
 
                                 <!-- facebook button -->
                                 <!-- Your share button code -->
-                                <div class="fb-share-button mb-3" :data-href="feed.images[0]" data-layout="button_count" data-size="large" data-mobile-iframe="false"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.instagram.com%2Fdeveloper%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+                                <div class="fb-share-button mb-3" :data-href="feed.images[0]" data-layout="button_count" data-size="large" data-mobile-iframe="false">Share</div>
                                 <a class="btn btn-primary btn-sm" :href="feed.images[0]"> Download </a>
                                 
                                 <div class="row">
