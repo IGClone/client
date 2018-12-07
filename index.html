@@ -23,20 +23,100 @@
         }(document, 'script', 'facebook-jssdk'));</script>
     <div id="app">
         <!-- header -->
-        <header-clone></header-clone>
+        <header-clone :islogin="isLogin" @logout_success="checkLogin" @login_success="checkLogin"></header-clone>
             <div class="container my-3">
                 <div class="row">
                     <!-- feed -->
-                    <feed :totalfeed="totalFeed" ></feed>
+                    <feed @comment_success="readFeed" :totalfeed="totalFeed" ></feed>
                     <div class="col-md-6">
                     
                         <listinguser :userslist="usersList" @following="following"></listinguser>
                       
+                        <upload-post v-if="isLogin" @upload-success="readFeed" class="mb-3"></upload-post>
                     </div>
                 </div>
             </div>
     </div>
-    
+    <script>
+        $('.collapse').collapse()
+    </script>
+    <!--Post Modal-->
+    <script id="upload-template" type="text/template">
+        <div>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#upload-photo">
+                <i class="fas fa-location-arrow"></i> <span class="font-weight-bold">POST</span>
+            </button>
+            <div class="modal fade" id="upload-photo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Share Your Photo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="container">
+                                    <div class="card card-form p-2">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"> Upload Image :</label>
+                                            <input @change="previewImage" class="form-control" type="file">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"> Descript Your Moment :</label>
+                                            <textarea v-model="description" class="form-control" placeholder="add description..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button @click="uploadFotoSingle" type="button" class="btn btn-primary">Upload</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#album-photo">
+                <i class="fas fa-images"></i><span class="font-weight-bold">Album</span>
+            </button>
+            <div class="modal fade" id="album-photo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Share Your Photo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="container">
+                            <div class="card card-form p-2">
+                                <div class="form-group">
+                                    <label class="font-weight-bold"> Upload Image :</label>
+                                    <input @change="previewImage" class="form-control" type="file">
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-bold"> Descript Your Moment :</label>
+                                    <textarea v-model="description" class="form-control" placeholder="add description..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button @click="uploadFotoSingle" type="button" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</script>
+    <script src="./components/upload.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="components/header.js"></script>

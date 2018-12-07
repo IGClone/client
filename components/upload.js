@@ -1,9 +1,11 @@
 const Upload = {
     template : '#upload-template',
-    data : {
-        images : [],
-        description: ''
-    },
+    data(){
+        return  {
+            images : [],
+            description: ''
+        }
+    }, 
     methods : {
         closeModal(){
             $('#upload-photo').modal('hide')
@@ -21,6 +23,7 @@ const Upload = {
             this.images.forEach(image => {
                 formData.append('images', image)
             })
+            formData.append('description', this.description)
             axios.post('http://localhost:3000/post',formData, { headers:{'Content-Type': 'multipart/form-data', token : localStorage.getItem('token')}} )
             .then( ({ data }) => {
                this.clear()

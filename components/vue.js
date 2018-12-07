@@ -1,23 +1,32 @@
 const app = new Vue ({
+    components : { 
+        'upload-post' : Upload
+    },
     el: "#app",
     data: {
-        totalFeed: [
-            {
-                userName: "kevinTanuhardi",
-                imgUrl: "http://cdn2.tstatic.net/makassar/foto/bank/images/dono-kasiono-indro_20180508_172559.jpg"
-            },
-            {
-                userName: "andreHok",
-                imgUrl: "https://9to5mac.com/wp-content/uploads/sites/6/2018/08/colorware.jpg?quality=82&strip=all&w=1500"
-            }
-        ],
+        host: "http://localhost:3000",
         usersList : [],
         followedUser: [],
-        host: "http://localhost:3000"
-    },created: function(){
-        this.getAllUser()
+        totalFeed: [],
+        isLogin: false
     },
     methods: {
+        readFeed (){
+            axios({
+                method : 'GET',
+                url : 'http://localhost:3000/post',
+                headers : { token : localStorage.getItem('token')}
+            })
+            .then( ({ data }) => {
+                this.totalFeed = data
+            })
+            .catch( ({ response }) => {
+                console.log( response )
+            })
+        },
+        shout(payload) {
+            alert(payload)
+        },
         getAllUser(){
             this.usersList = []
             axios({
@@ -46,6 +55,18 @@ const app = new Vue ({
             .catch(err => {
                 console.log(err)
             })
+        },
+        checkLogin() {
+            if(localStorage.getItem('token')) {
+                this.isLogin = true
+            } else {
+                this.isLogin = false
+            }
         }
     },
+    created(){
+        this.checkLogin()
+        this.readFeed()
+        this.getAllUser()
+    }
 })
