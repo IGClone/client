@@ -29,26 +29,11 @@
                 <div class="row">
                     <!-- feed -->
                     
-                    <feed :totalfeed="totalFeed" @apaja=></feed>
+                    <feed :totalfeed="totalFeed" ></feed>
     
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                     
-                        <div class="card pb-0">
-                            <div class="card-body pb-0"><h5 class="font-weight-light">Users List</h5></div>
-                        </div>
-                            
-                        <div class="card" >
-                            <div class="card-body pb-0">
-                                <div class="row mb-2" v-for="user in usersList" >
-                                    <div class="col-8">
-                                            <h5 >{{user.userName}}</h5>
-                                    </div>
-                                    <div class="col-4 pr-2">
-                                            <button class="btn btn-primary btn-sm"><i class="fab fa-instagram fa-1.5x"></i> follow</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <listinguser :userslist="usersList"></listinguser>
                       
                     </div>
                 </div>
@@ -59,9 +44,9 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="header.js"></script>
-    <script src="feed.js"></script>
-    <script src="test.js"></script>
-    <script src="vue.js"></script>
+    <script src="components/header.js"></script>
+    <script src="components/feed.js"></script>
+    <script src="components/usersList.js"></script>
+    <script src="components/vue.js"></script>
 </body>
 </html>
