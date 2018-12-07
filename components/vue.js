@@ -24,11 +24,20 @@ const app = new Vue ({
             {
                 userName: "dhimasHary"
             }
-        ]
+        ],
+        isLogin: false
     },
     methods: {
-        shout(payload){
+        shout(payload) {
             alert(payload)
+        },
+        checkLogin() {
+            let token = localStorage.getItem("token")
+            if (token) {
+                this.isLogin = true
+            } else {
+                this.isLogin = false
+            }
         }
-    }
+    },
 })
