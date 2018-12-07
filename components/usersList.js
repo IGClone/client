@@ -11,12 +11,12 @@ Vue.component("listinguser",{
                 
             <div class="card" >
                 <div class="card-body pb-0">
-                    <div class="row mb-2" v-for="user in userslist" >
+                    <div class="row mb-2" v-for="user, index in userslist" >
                         <div class="col-8">
-                                <h5>{{user.userName}}</h5>
+                                <h5>{{user.name}}</h5>
                         </div>
                         <div class="col-4 p-2">
-                                <button class="btn btn-primary btn-sm">
+                                <button @click="follow(user, index)" class="btn btn-primary btn-sm">
                                     <i class="fab fa-instagram fa-1.5x">
                                     </i> follow
                                 </button>
@@ -26,5 +26,10 @@ Vue.component("listinguser",{
             </div>
         </div>
         `,
-    props: ["userslist"]
+    props: ["userslist"],
+    methods: {
+        follow(followingUser, index){
+            this.$emit("following", {followingUser: followingUser, index: index})
+        }
+    }
 })

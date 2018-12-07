@@ -29,7 +29,9 @@
                     <!-- feed -->
                     <feed :totalfeed="totalFeed" ></feed>
                     <div class="col-md-6">
-                        <listinguser :userslist="usersList"></listinguser>
+                    
+                        <listinguser :userslist="usersList" @following="following"></listinguser>
+                      
                     </div>
                 </div>
             </div>
